@@ -25,5 +25,5 @@ mongoose.connect(process.env.CONNECTION_STRING, {
 if (process.env.HOST == 'localhost:8080') {
   app.use(morgan('dev'));
 }
-
+app.use(express.json());
 app.use('/', routes).use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
