@@ -6,20 +6,25 @@ const swaggerFile = require('./swagger-output.json');
 const routes = require('./routes/index');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const port = process.env.PORT || 8080;
 dotenv.config();
 
-mongoose.connect(process.env.CONNECTION_STRING, {
+app.use('/', bodyParser.json());
+app.use('/', routes);
+
+mongoose
+  .connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => {
+    useUnifiedTopology: true
+  })
+  .then(() => {
     app.listen(port);
     console.log(`Connected to MongoDB and listening on port ${port}`);
-})
-.catch((error) => {
+  })
+  .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
-});
+  });
 
 //logging
 if (process.env.HOST == 'localhost:8080') {
