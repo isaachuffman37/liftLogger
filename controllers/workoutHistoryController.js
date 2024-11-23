@@ -2,7 +2,8 @@ const WorkoutHistory = require('../models/workoutHistoryModel');
 const { Types } = require('mongoose');
 require('dotenv').config();
 
-const DB_URI = process.env.CONNECTION_STRING
+// No proper error handling since I believe we're going to 
+// implement some kind of global error handling later on. 
 
 // Since the history data has its own id, I'm going to assume
 // that the userId and workoutId will be passed within the body

@@ -4,18 +4,18 @@ POST http://localhost:8080/history HTTP/1.1
 content-type: application/json
 
 {
-    "userId": "testValue1",
-    "workoutId": "testValue2"
+    "userId": "674118f7d30b235f4328dc49",
+    "workoutId": "6740f8f63aceb7616f759d50"
 }
 
 ###
 GET http://localhost:8080/history
 
 ###
-GET http://localhost:8080/history/674118f7d30b235f4328dc4a
+GET http://localhost:8080/history/67412e4c46c79da8cdec326c
 
 ###
-PUT http://localhost:8080/history/674118f7d30b235f4328dc4a HTTP/1.1
+PUT http://localhost:8080/history/67412e4c46c79da8cdec326c HTTP/1.1
 Content-Type: application/json
 
 {
@@ -23,10 +23,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/history/674118f7d30b235f4328dc4a
+DELETE http://localhost:8080/history/67412e4c46c79da8cdec326c
 
 ### Subdocument queries
-POST http://localhost:8080/history/674118f7d30b235f4328dc4a/weight HTTP/1.1
+POST http://localhost:8080/history/67412e4c46c79da8cdec326c/weight HTTP/1.1
 Content-Type: application/json
 
 {
@@ -34,11 +34,11 @@ Content-Type: application/json
     "weight": 15
 }
 ###
-GET http://localhost:8080/history/6741221e6e60045992f55299/weight/
+GET http://localhost:8080/history/67412e4c46c79da8cdec326c/weight/
 ###
-GET http://localhost:8080/history/674118f7d30b235f4328dc4a/weight/6741221e6e60045992f55299
+GET http://localhost:8080/history/67412e4c46c79da8cdec326c/weight/67412e6a46c79da8cdec3275
 ###
-PUT http://localhost:8080/history/674118f7d30b235f4328dc4a/weight/6741221e6e60045992f55299 HTTP/1.1
+PUT http://localhost:8080/history/67412e4c46c79da8cdec326c/weight/67412e6a46c79da8cdec3275 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -46,4 +46,4 @@ Content-Type: application/json
     "weight": 60
 }
 ###
-DELETE http://localhost:8080/history/674118f7d30b235f4328dc4a/weight/67411b2f73cf9a73e25814a0
+DELETE http://localhost:8080/history/67412e4c46c79da8cdec326c/weight/67412e6a46c79da8cdec3275
