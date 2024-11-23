@@ -1,0 +1,10 @@
+// LOCALHOST
+###
+GET http://localhost:8080/users
+###
+GET http://localhost:8080/users/67417f3852e2ef560979c51c
+###
+DELETE  http://localhost:8080/users/67417f3852e2ef560979c51c
+###
+
+
