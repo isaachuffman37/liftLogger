@@ -1,0 +1,33 @@
+POST http://localhost:8080/workouts HTTP/1.1
+content-type: application/json
+
+{
+  "userId": "64e6f0df5b7e9a0014ab1234",
+  "workoutName": "Chest Day",
+  "exercises": [
+    { "exerciseName": "Bench", "reps": 10, "sets": 3 },
+    { "exerciseName": "Flys", "reps": 12, "sets": 4 }
+  ]
+}
+
+
+###
+
+GET http://localhost:8080/workouts/user/64e6f0df5b7e9a0014ab1234 HTTP/1.1
+
+###
+
+DELETE http://localhost:8080/workouts/674017c7ab3d70a856ef7a80 HTTP/1.1
+
+###
+
+PUT http://localhost:8080/workouts/67402078ab3d70a856ef7a84 HTTP/1.1
+content-type: application/json
+
+{
+  "workoutName": "Updated Leg Day",
+  "exercises": [
+    { "exerciseName": "Squat", "reps": 15, "sets": 4 },
+    { "exerciseName": "Leg Press", "reps": 12, "sets": 3 }
+  ]
+}

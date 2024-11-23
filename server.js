@@ -21,9 +21,13 @@ mongoose.connect(process.env.CONNECTION_STRING, {
     console.error('Error connecting to MongoDB:', error);
 });
 
+app.use(express.json());
+
 //logging
 if (process.env.HOST == 'localhost:8080') {
   app.use(morgan('dev'));
 }
 
-app.use('/', routes).use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
+app
+    .use('/', routes)
+    .use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
