@@ -1,0 +1,49 @@
+
+###
+POST http://localhost:8080/history HTTP/1.1
+content-type: application/json
+
+{
+    "userId": "674118f7d30b235f4328dc49",
+    "workoutId": "6740f8f63aceb7616f759d50"
+}
+
+###
+GET http://localhost:8080/history
+
+###
+GET http://localhost:8080/history/67412e4c46c79da8cdec326c
+
+###
+PUT http://localhost:8080/history/67412e4c46c79da8cdec326c HTTP/1.1
+Content-Type: application/json
+
+{
+    "userId": "6740f8f63aceb7616f759d50"
+}
+
+###
+DELETE http://localhost:8080/history/67412e4c46c79da8cdec326c
+
+### Subdocument queries
+POST http://localhost:8080/history/67412e4c46c79da8cdec326c/weight HTTP/1.1
+Content-Type: application/json
+
+{
+    "exerciseName": "Lateral Raises",
+    "weight": 15
+}
+###
+GET http://localhost:8080/history/67412e4c46c79da8cdec326c/weight/
+###
+GET http://localhost:8080/history/67412e4c46c79da8cdec326c/weight/67412e6a46c79da8cdec3275
+###
+PUT http://localhost:8080/history/67412e4c46c79da8cdec326c/weight/67412e6a46c79da8cdec3275 HTTP/1.1
+Content-Type: application/json
+
+{
+    "exerciseName": "Cable Pulldown",
+    "weight": 60
+}
+###
+DELETE http://localhost:8080/history/67412e4c46c79da8cdec326c/weight/67412e6a46c79da8cdec3275

@@ -30,6 +30,6 @@ if (process.env.HOST == 'localhost:8080') {
 
 
 app
-    .use(express.json());
+    .use(express.json())
     .use('/', routes)
     .use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
