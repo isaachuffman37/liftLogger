@@ -2,9 +2,11 @@ const User = require('../models/userModel.js')
 const mongoose = require('mongoose')
 
 const getUsers = async (req, res) => {
-  const users = await User.find({}).sort()
+  const userData = await User.find({}).sort()
 
-  res.status(200).json(users)
+  // res.status(200).json(users)
+  // console.log(users)
+  res.render('index', {users: userData})
 }
 
 const getUser = async (req, res) => {

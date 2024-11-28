@@ -9,6 +9,9 @@ const mongoose = require('mongoose');
 const port = process.env.PORT || 8080;
 dotenv.config();
 
+app.set('views', 'views')
+app.set('view engine', 'ejs')
+
 mongoose.connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -30,4 +33,4 @@ if (process.env.HOST == 'localhost:8080') {
 app
     .use(express.json())
     .use('/', routes)
-    .use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerFile));
+    .use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerFile))
