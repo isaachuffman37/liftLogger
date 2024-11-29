@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const user = require('./users');
+const layout = require('./layout')
 
+router.use('/', layout)
 router.use('/', require('./swagger'));
 router.use('/', require('./workoutHistory'))
 router.use('/users', user);

@@ -28,7 +28,9 @@ async function getWorkoutsByUserId(req, res) {
         return res.status(404).json({ message: "No workouts found for this user" });
       }
   
-      res.status(200).json(workouts); // Send workouts in response
+      // res.status(200).json(workouts); // Send workouts in response
+      res.render('workouts', {workoutsData: workouts})
+      
     } catch (error) {
       console.error("Error fetching workouts:", error);
       res.status(500).json({ error: "Internal server error" });

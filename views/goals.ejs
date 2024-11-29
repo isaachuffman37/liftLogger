@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/nav.ejs') %>
+
+    <h2>Goal title: <% goalData.goalTitle %></h2>
+    <p>Goal Weight: <% goalData.goalWeight %></p>
+    <p>Status: <% goalData.status %></p>
+    <p>Deadline: <% goalData.deadline %></p>
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

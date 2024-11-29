@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    
+    <% historyData.weights.forEach(weight => { %>
+        <li>
+            <h4>Exercise: <%= weight.exerciseName %></h4>
+            <p>Weight: <%= weight.weight %></p>
+        </li>
+    <% }) %>
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

@@ -5,6 +5,7 @@ const getUsers = async (req, res) => {
   const users = await User.find({}).sort()
 
   res.status(200).json(users)
+  // res.render('user', {users: userData})
 }
 
 const getUser = async (req, res) => {
@@ -19,8 +20,9 @@ const getUser = async (req, res) => {
   if(!user) {
     return res.status(404).json({error: "No such user"})
   }
-
-  res.status(200).json(user)
+  console.log("Hit")
+  // res.status(200).json(user)
+  res.render('user', {userData: user})
 }
 
 // create a new user

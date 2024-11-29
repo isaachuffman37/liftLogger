@@ -37,7 +37,8 @@ async function getGoalById(req, res) {
         if (!goal) {
             return res.status(404).json({message: "Goal not found"});
         }
-        res.status(200).json(goal);
+        // res.status(200).json(goal);
+        res.render('goals', {goalData: goal})
     } catch (error) {
         console.error("Error getting goal: ", error);
         res.status(500).json({error: "Internal server error"});
