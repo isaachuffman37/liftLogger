@@ -4,12 +4,19 @@
 <body>
     <%- include('./partials/nav.ejs') %>
     
-    <% historyData.weights.forEach(weight => { %>
-        <li>
-            <h4>Exercise: <%= weight.exerciseName %></h4>
-            <p>Weight: <%= weight.weight %></p>
+    <div class="workout-history">
+        <li class="history-list">
+        <h2>History</h2>
+        <% historyData.weights.forEach(weight=> { %>
+            <div class="history-card">
+                <h4>Exercise: <%= weight.exerciseName %>
+                </h4>
+                <p>Weight: <%= weight.weight %>
+                </p>
+            </div>
+        <% }) %>
         </li>
-    <% }) %>
+    </div>
     <%- include('./partials/footer.ejs') %>
 </body>
 </html>

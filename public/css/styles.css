@@ -1,0 +1,139 @@
+:root {
+    --border-radius: 8px;
+    --nav: #bcbcbc;
+    --nav-mobile-button: #bababa;
+    --nav-mobile-button-other: #d5d5d5;
+    --nav-hover: #e0e0e0;
+    --workout-list-background: #dedede;
+    --workout-card-background: #c2c2c2;
+    --workout-card-background-other: #afafaf;
+}
+
+body {
+    margin: 0;
+}
+
+nav {
+    width: 100%;
+    background-color: var(--nav);
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+nav>div h1 {
+    margin: 0;
+    padding: 0 1em;
+}
+
+nav>div>a {
+    width: 100%;
+    padding: 1em;
+}
+
+nav>ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav>ul>li>a {
+    display: block;
+    padding: 1.5em;
+}
+
+nav>ul>li {
+    background-color: var(--nav-mobile-button);
+}
+
+nav>ul>li:nth-child(odd) {
+    background-color: var(--nav-mobile-button-other);
+}
+
+nav>ul>li>a:hover, nav>div:hover {
+    background-color: var(--nav-hover);
+}
+
+/* WORKOUTS */
+
+.workout-list, 
+.history-list {
+    text-align: center;
+    background-color: var(--workout-list-background);
+    margin: 1em auto;
+    padding: 1em;
+    list-style-type: none;
+    border-radius: var(--border-radius);
+    max-width: 600px;
+}
+
+.workout-card, 
+.history-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--workout-card-background);
+    padding: 0 1em;
+    margin: 0 auto;
+}
+
+#goals {
+    background-color: var(--workout-list-background);
+    max-width: 600px;
+    margin: 1em auto;
+    padding: 1em;
+    border-radius: var(--border-radius);
+}
+
+.goal-card {
+    background-color: var(--workout-card-background);
+    padding: 1em;
+    border-radius: var(--border-radius);
+}
+
+.goal-card ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style-type: none;
+}
+
+.workout-card:nth-child(2), 
+.goal-card:nth-child(2), 
+.history-card:nth-child(2) {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+.workout-card:nth-child(odd), 
+.goal-card:nth-child(odd),
+.history-card:nth-child(odd) {
+    background-color: var(--workout-card-background-other);
+}
+
+.workout-card:last-child, .goal-card:last-child {
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+
+@media screen and (min-width: 600px) {
+    nav {
+        display: flex;
+        flex-direction: row;
+    }
+
+    nav>ul {
+        display: flex;
+        flex-direction: row;
+    }
+
+    nav>ul>li, nav>ul>li:nth-child(odd) {
+        background-color: var(--nav);
+    }   
+}
