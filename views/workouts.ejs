@@ -8,12 +8,9 @@
             <h2>Workout Name: <%= workout.workoutName %></h2>
             <% workout.exercises.forEach(exercise => { %>
                 <div class="workout-card">
-                    <h3>Exercise: <%= exercise.exerciseName %>
-                    </h3>
-                    <p>Reps: <%= exercise.reps %>
-                    </p>
-                    <p>Sets: <%= exercise.sets %>
-                    </p>
+                    <h3>Exercise: <%= exercise.exerciseName %></h3>
+                    <p>Reps: <%= exercise.reps %></p>
+                    <p>Sets: <%= exercise.sets %></p>
                 </div>
             <% }) %>
         </li>
