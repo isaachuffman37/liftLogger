@@ -1,0 +1,49 @@
+/* login and register forms */
+#login-section, #register-section{
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+  
+  #login-form label, #register-form label{
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 18px;
+    color: #333
+  }
+  
+  #login-form input:not([type="submit"]), #register-form input:not([type="submit"]) {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  
+  #login-form input[type="submit"], #register-form input[type="submit"]{
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #login-form input[type="submit"]:hover, #register-form input[type="submit"]:hover {
+    background-color: rgb(37, 155, 240);
+    color: white;
+  }
+    
+  #login-form input:required:valid:not(:focus), #register-form input:required:valid:not(:focus){
+    border: 2px solid rgb(4, 174, 18);
+    background-color: rgb(227, 244, 226);
+    border-radius: 4px;
+  }

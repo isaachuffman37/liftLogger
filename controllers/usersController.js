@@ -1,6 +1,15 @@
 const User = require('../models/userModel.js')
 const mongoose = require('mongoose')
 
+
+const renderLogin = async (req, res) => {
+  res.render('login');
+}
+
+const renderRegister = async (req, res) => {
+  res.render('register');
+}
+
 const getUsers = async (req, res) => {
   const users = await User.find({}).sort()
 
@@ -77,6 +86,8 @@ res.status(204).json(user)
 }
 
 module.exports = {
+   renderLogin,
+   renderRegister,
    getUsers,
    getUser,
    createUser, 

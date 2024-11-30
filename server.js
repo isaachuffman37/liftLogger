@@ -11,6 +11,7 @@ dotenv.config();
 
 app.set('views', 'views')
 app.set('view engine', 'ejs')
+app.use(express.static('public'));
 
 mongoose.connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true,
