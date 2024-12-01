@@ -1,5 +1,6 @@
 const Goal = require('../models/Goals');
 const mongoose = require('mongoose');
+const utilites = require("../utilities/index")
 
 async function createGoal(req, res) {
     try { 
@@ -18,7 +19,11 @@ async function getGoals(req, res) {
         if (goals.length === 0) { 
             return res.status(204).json({message: "No goals found"});
         }
-        res.status(200).json(goals);
+
+        let goalMarkup = goals.reduce((acc, goal) => acc + utilites.buildGoal(goal), "")
+        console.log(goals)
+        console.log(goalMarkup)
+        res.render('goals', { goalData: goalMarkup });
     } catch (error) { 
         console.error("Error getting the goals:", error);
         res.status(500).json({error: "Internal server error"});
@@ -38,7 +43,7 @@ async function getGoalById(req, res) {
             return res.status(404).json({message: "Goal not found"});
         }
         // res.status(200).json(goal);
-        res.render('goals', {goalData: goal})
+        res.render('goals', { goalData: utilites.buildGoal(goal) })
     } catch (error) {
         console.error("Error getting goal: ", error);
         res.status(500).json({error: "Internal server error"});

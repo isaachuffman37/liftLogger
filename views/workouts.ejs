@@ -4,12 +4,14 @@
 <body>
     <%- include('./partials/nav.ejs') %>
     <% workoutsData.forEach(workout => { %>
-        <li>
+        <li class="workout-list">
             <h2>Workout Name: <%= workout.workoutName %></h2>
             <% workout.exercises.forEach(exercise => { %>
-                <h3>Exercise: <%= exercise.exerciseName %></h3>
-                <p>Reps: <%= exercise.reps %></p>
-                <p>Sets: <%= exercise.sets %></p>
+                <div class="workout-card">
+                    <h3>Exercise: <%= exercise.exerciseName %></h3>
+                    <p>Reps: <%= exercise.reps %></p>
+                    <p>Sets: <%= exercise.sets %></p>
+                </div>
             <% }) %>
         </li>
     <% }) %>
