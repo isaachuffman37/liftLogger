@@ -4,7 +4,9 @@
 <body>
     <%- include('./partials/nav.ejs') %>
     <div>
-        <h1>Welcome to Lift Logger</h1>
+        <h1>
+            Welcome to Lift Logger<%= firstName ? ', ' + firstName + '!' : '!' %>
+        </h1>
 
     </div>
 

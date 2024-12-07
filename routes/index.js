@@ -9,5 +9,6 @@ router.use('/', require('./workoutHistory'))
 router.use('/users', user);
 router.use('/', require('./workoutsRoutes'));
 router.use('/', require('./goalsRoutes'));
+router.use('/', require('./auth'));
 
 module.exports = router;

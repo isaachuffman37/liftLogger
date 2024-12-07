@@ -1,6 +1,9 @@
 var express = require('express');
 const app = express();
 const morgan = require('morgan');
+const passport = require('passport')
+const session = require('express-session');
+const MongoStore = require('connect-mongo')
 const swaggerUI = require('swagger-ui-express');
 const swaggerFile = require('./swagger-output.json');
 const routes = require('./routes/index');
@@ -23,6 +26,23 @@ mongoose.connect(process.env.CONNECTION_STRING, {
 .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
 });
+
+// Passport Config
+require('./config/passport')(passport)
+
+// Sessions 
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        client: mongoose.connection.getClient() 
+    })
+  }))
+
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 //logging
 if (process.env.HOST == 'localhost:8080') {

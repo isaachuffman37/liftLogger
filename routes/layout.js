@@ -4,7 +4,8 @@ const app = express()
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  res.render('welcomePage')
+  const firstName = req.user?.firstName || null;
+  res.render('welcomePage', {firstName})
 })
 
 module.exports = router

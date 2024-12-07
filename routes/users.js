@@ -14,7 +14,7 @@ const router = express.Router()
 
 router.get('/', getUsers)
 
-router.get('/:id', getUser)
+router.get('/userInfo', getUser)
 
 router.post('/', createUser)
 
