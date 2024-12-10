@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+    <body>
+        <%- include('./partials/nav.ejs') %>
+            <h1><%- title %></h1>
+            <form method="post" action="/userHistory/update">
+                    <label>Exercise Name<input type="text" name="exerciseName" value="<%= exerciseName %>"></label>
+                    <label>Weight<input type="number" name="weight" value="<%= weight %>"></label>
+                    <input type="submit" id="submit" value="Update History">
+                    <input type="hidden" name="weightId" value="<%- weightId %>">
+                    <input type="hidden" name="historyId" value="<%- historyId %>">
+            </form>
+            <%- include('./partials/footer.ejs') %>
+                <!-- <script src="../../js/addWeight.js"></script> -->
+    </body>
+</html>

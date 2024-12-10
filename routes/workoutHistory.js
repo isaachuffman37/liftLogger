@@ -1,17 +1,29 @@
 const router = require('express').Router();
-const { createHistory, getAllHistory, getHistory, updateHistory, deleteHistory, addWeight, getWeight, getAllWeights, updateWeight, deleteWeight } = require('../controllers/workoutHistoryController');
+const historyController = require('../controllers/workoutHistoryController');
 
-router.post('/history', createHistory);
-router.get('/history', getAllHistory);
-router.get('/history/:id', getHistory);
-router.put('/history/:id', updateHistory);
-router.delete('/history/:id', deleteHistory);
+// Frontend routes and views
+router.get("/userHistory", historyController.userHistoryView)
+router.get("/userHistory/create", historyController.createHistoryView)
+router.post("/userHistory/create", historyController.createHistoryFromForm)
+router.get("/userHistory/update/:historyId/:weightId", historyController.updateHistoryView)
+router.post("/userHistory/update", historyController.updateHistoryFromForm)
+
+router.get("/userHistory/remove/:historyId", historyController.deleteHistoryView)
+router.get("/userHistory/remove/:historyId/:weightId", historyController.deleteHistoryCardView)
+router.post("/userHistory/remove/:historyId", historyController.deleteHistoryFromForm)
+router.post("/userHistory/remove/:historyId/:weightId", historyController.deleteHistoryCardFromForm)
+
+router.post('/history', historyController.createHistory);
+router.get('/history', historyController.getAllHistory);
+router.get('/history/:id', historyController.getHistory);
+router.put('/history/:id', historyController.updateHistory);
+router.delete('/history/:id', historyController.deleteHistory);
 
 // Some additional routes for adding sub weights to the workout history document
-router.post('/history/:id/weight', addWeight);
-router.get('/history/:id/weight/', getAllWeights);
-router.get('/history/:id/weight/:subid', getWeight);
-router.put('/history/:id/weight/:subid', updateWeight);
-router.delete('/history/:id/weight/:subid', deleteWeight);
+router.post('/history/:id/weight', historyController.addWeight);
+router.get('/history/:id/weight/', historyController.getAllWeights);
+router.get('/history/:id/weight/:subid', historyController.getWeight);
+router.put('/history/:id/weight/:subid', historyController.updateWeight);
+router.delete('/history/:id/weight/:subid', historyController.deleteWeight);
 
 module.exports = router;

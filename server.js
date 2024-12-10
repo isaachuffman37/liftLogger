@@ -9,6 +9,7 @@ const swaggerFile = require('./swagger-output.json');
 const routes = require('./routes/index');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const port = process.env.PORT || 8080;
 dotenv.config();
 
@@ -51,6 +52,6 @@ if (process.env.HOST == 'localhost:8080') {
 
 
 app
-    .use(express.json())
+    .use(bodyParser.urlencoded({ extended: true }))
     .use('/', routes)
     .use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerFile))

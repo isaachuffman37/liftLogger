@@ -3,18 +3,30 @@
     <%- include('./partials/head.ejs') %>
 <body>
     <%- include('./partials/nav.ejs') %>
-    <% workoutsData.forEach(workout => { %>
+    <a href="/userWorkouts/create">Create workout</a>
+    <% if (workoutsData.length > 0) {%>
+        <% workoutsData.forEach(workout=> { %>
         <li class="workout-list">
-            <h2>Workout Name: <%= workout.workoutName %></h2>
-            <% workout.exercises.forEach(exercise => { %>
+            <h2>Workout Name: <%= workout.workoutName %>
+            </h2>
+            <a href="/userWorkouts/delete/<%= workout._id %>">Delete</a>
+            <% workout.exercises.forEach(exercise=> { %>
                 <div class="workout-card">
-                    <h3>Exercise: <%= exercise.exerciseName %></h3>
-                    <p>Reps: <%= exercise.reps %></p>
-                    <p>Sets: <%= exercise.sets %></p>
+                    <h3>Exercise: <%= exercise.exerciseName %>
+                    </h3>
+                    <p>Reps: <%= exercise.reps %>
+                    </p>
+                    <p>Sets: <%= exercise.sets %>
+                    </p>
+                    <a href="/userWorkouts/updateExercise/<%= exercise._id %>">Modify</a>
+                    <a href="/userWorkouts/removeExercise/<%= exercise._id %>">Delete</a>
                 </div>
-            <% }) %>
+                <% }) %>
         </li>
-    <% }) %>
+        <% }) %>
+    <% } else { %>
+        <div>No workouts found.</div>
+    <% } %>
     <%- include('./partials/footer.ejs') %>
 </body>
 </html>
