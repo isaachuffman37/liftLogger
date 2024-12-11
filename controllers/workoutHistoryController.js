@@ -1,5 +1,7 @@
 const WorkoutHistory = require('../models/workoutHistoryModel');
-const { Types } = require('mongoose');
+const Workout = require("../models/Workouts")
+const { Types, default: mongoose } = require('mongoose');
+const utils = require('../utilities');
 require('dotenv').config();
 
 // No proper error handling since I believe we're going to 
@@ -196,6 +198,169 @@ const deleteWeight = async (req, res) => {
     res.sendStatus(204);
 }
 
+async function userHistoryView(req, res) {
+    try {
+        const userId = req.user.id
+        //Verify that the id is valid
+        if (!Types.ObjectId.isValid(userId)) {
+            return res.status(400).send(`specified id ${userId} is not a valid ObjectId`)
+        }
+
+        const history = await WorkoutHistory.find({ userId: userId });
+        if (!history) return res.status(404).send("could not find document");
+
+        const historyMarkup = await utils.buildHistoryDataFromWorkoutHistory(history)
+
+        // res.status(200).json(history);
+        res.render('history', {
+            title: "History",
+            history: historyMarkup
+        })
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+async function createHistoryView(req, res) {
+    try {
+        const userId = req.user.id
+        const userIdObj = mongoose.Types.ObjectId.createFromHexString(userId)
+        const workoutData = await Workout.aggregate([
+            {
+                $match: { "userId": userIdObj }
+            },
+            { 
+                $project: {
+                    _id: 1,
+                    workoutName: 1,
+                }
+            }
+        ])
+
+        const workoutSelectList = utils.buildWorkoutSelectList(workoutData)
+
+        res.render("addHistory", {
+            title: "Create History",
+            userId: userId,
+            workoutSelectList: workoutSelectList
+        })
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+async function createHistoryFromForm(req, res) {
+    try {
+        const history = await new WorkoutHistory(req.body)
+        await history.save()
+        if (history) {
+            res.redirect("/userHistory")
+        } else {
+            res.redirect("/userHistory/create")
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+async function updateHistoryView(req, res) {
+    try {
+        const { historyId, weightId } = req.params
+        const history = await WorkoutHistory.findById(historyId)
+        const document = await history.weights.id(weightId)
+        const workout = await Workout.findById(history.workoutId)
+        
+        res.render("updateHistory", {
+            title: `Update ${ workout.workoutName } History`,
+            weightId: subHistoryId,
+            historyId: historyId,
+            exerciseName: document.exerciseName,
+            weight: document.weight
+        })
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+async function updateHistoryFromForm(req, res) {
+    try {
+        const { historyId, weightId, exerciseName, weight } = req.body
+        const history = await WorkoutHistory.findById(historyId)
+        const document = await history.weights.id(weightId)
+
+        document.set({
+            exerciseName: exerciseName,
+            weight: Number.parseFloat(weight)
+        })
+
+        await history.save()
+        res.redirect("/userHistory")
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+async function deleteHistoryCardView(req, res) {
+    try {
+        const { historyId, weightId } = req.params
+        const history =  await WorkoutHistory.findById(historyId)
+        const document = await history.weights.id(weightId)
+
+        res.render("removeHistoryCard", {
+            title: "Remove History Card",
+            historyId,
+            weightId,
+            exerciseName: document.exerciseName,
+            weight: document.weight,
+        })
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+async function deleteHistoryView(req, res) {
+    try {
+        const { historyId, weightId } = req.params
+        const history =  await WorkoutHistory.findById(historyId)
+        const workout = await Workout.findById(history.workoutId)
+
+        res.render("removeHistory", {
+            title: "Remove History",
+            historyId,
+            workoutName: workout.workoutName
+        })
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+async function deleteHistoryCardFromForm(req, res) {
+    try {
+        const { historyId, weightId } = req.body
+        const history =  await WorkoutHistory.findById(historyId)
+        const document = await history.weights.id(weightId)
+        
+        document.deleteOne()
+        history.save()
+
+        res.redirect("/userHistory")
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+async function deleteHistoryFromForm(req, res) {
+    try {
+        const { historyId } = req.body
+        
+        await WorkoutHistory.findByIdAndDelete(historyId)
+
+        res.redirect("/userHistory")
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 module.exports = {
   createHistory,
   getHistory,
@@ -206,5 +371,16 @@ module.exports = {
   getWeight,
   getAllWeights,
   updateWeight,
-  deleteWeight
+  deleteWeight,
+
+  createHistoryView,
+  userHistoryView,
+  updateHistoryView,
+  deleteHistoryCardView,
+  deleteHistoryView,
+
+  createHistoryFromForm,
+  updateHistoryFromForm,
+  deleteHistoryCardFromForm,
+  deleteHistoryFromForm,
 };

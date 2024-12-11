@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <div id="goals">
+        <form action="/userGoals/create" method="post">
+            <input type="hidden" name="userId" id="userId" value="<%- userId %>">
+            <label>Title<input type="text" name="goalTitle" id="goalTitle"></label>
+            <label>Weight<input type="number" name="goalWeight" id="goalWeight"></label>
+            <label>Status<select name="status" id="status">
+                <option value="Not Started" selected>Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select></label>
+            <label>Deadline<input type="date" name="deadline" id="deadline"></label>
+            <input type="submit" id="submit" value="Create My Goal">
+        </form>
+    </div>
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

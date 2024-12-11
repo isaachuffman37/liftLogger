@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <h1><%- title %></h1>
+    <form method="post" action="/userWorkouts">
+        <label>Workout Name<input type="text" name="workoutName" id="workoutName" pattern="^[\w\s]+$" required></label>
+        <button type="button" id="add-workout">Add Workout</button>
+        <div id="workout-fields"></div>
+        <input type="submit" name="submit" id="submit" value="Create My Workout">
+        <input type="hidden" name="userId" id="userId" value="<%- user_id %>">
+    </form>
+    <%- include('./partials/footer.ejs') %>
+    <script src="../../js/addExercise.js"></script>
+</body>
+</html>

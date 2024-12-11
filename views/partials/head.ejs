@@ -2,5 +2,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
-    <title>Lift Logger</title>
+    <title>
+        <% titleStr = "" %>
+        <% try { %>
+            <% if (title) { %>
+                <% titleStr=title + " - " %>
+            <% } %>
+        <% } catch (err) { %>
+            <% console.log("Could not find title for page") %>
+        <% } %>
+        <%- titleStr + "Lift Logger" %>
+    </title>
 </head>

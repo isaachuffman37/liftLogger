@@ -3,19 +3,10 @@
     <%- include('./partials/head.ejs') %>
 <body>
     <%- include('./partials/nav.ejs') %>
-    
-    <div class="workout-history">
-        <li class="history-list">
-        <h2>History</h2>
-        <% historyData.weights.forEach(weight=> { %>
-            <div class="history-card">
-                <h4>Exercise: <%= weight.exerciseName %>
-                </h4>
-                <p>Weight: <%= weight.weight %>
-                </p>
-            </div>
-        <% }) %>
-        </li>
+    <div class="workout-history"></div>
+        <h1><%= title %></h1>
+        <a href="/userHistory/create">Create</a>
+        <%- history %>
     </div>
     <%- include('./partials/footer.ejs') %>
 </body>

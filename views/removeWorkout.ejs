@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <h1><%- title %></h1>
+    <form method="post" action="/userWorkouts/delete">
+        <label>Workout Name<input type="text" pattern="^[\w\s]+$" value="<%= workoutName %>" readonly></label>
+        <p>Are you sure you want to delete this workout? This action cannot be undone.</p>
+        <div id="workout-fields">
+            <%- workoutMarkup %>
+        </div>
+        <input type="submit" name="submit" id="submit" value="Delete This Workout">
+        <input type="hidden" name="workoutId" id="userId" value="<%- workoutId %>">
+    </form>
+    <%- include('./partials/footer.ejs') %>
+    <script src="../../js/addExercise.js"></script>
+</body>
+</html>
