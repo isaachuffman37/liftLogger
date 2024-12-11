@@ -4,8 +4,12 @@ const app = express()
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  const firstName = req.user?.firstName || null;
-  res.render('welcomePage', {firstName})
+  if (req.user) {
+    const firstName = req.user?.firstName;
+    res.render('welcomePage', {firstName})
+  } else {
+    res.redirect("/auth/google")
+  }
 })
 
 module.exports = router
