@@ -3,6 +3,7 @@
     <%- include('./partials/head.ejs') %>
 <body>
     <%- include('./partials/nav.ejs') %>
+    <%- messages() %>
     <div id="goals">
         <form action="/userGoals/update" method="post">
             <input type="hidden" name="goalId" id="goalId" value="<%= goalId %>">

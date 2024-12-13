@@ -3,6 +3,7 @@
     <%- include('./partials/head.ejs') %>
 <body>
     <%- include('./partials/nav.ejs') %>
+    <%- messages() %>
     <form action="/userWorkouts/updateExercise" method="post">
         <label>Name<input type="text" name="exerciseName" id="exerciseName" value="<%- exercise.exerciseName %>"></label>
         <label>Reps<input type="number" name="reps" id="reps" value="<%- exercise.reps %>"></label>

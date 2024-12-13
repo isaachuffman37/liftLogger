@@ -8,7 +8,9 @@
                 <!-- <label>Workout Name<input type="text" name="workoutName" id="workoutName" pattern="^[\w\s]+$"
                                     required></label> -->
                 <p>Are you sure you want to delete this workout history? This action cannot be undone.</p>
-                <label>Exercise Name <input type="text" value="<%= exerciseName %>" readonly></label>
+                <label>Exercise Name <select type="text" value="<%= exerciseName %>" readonly>
+                    <option value="<%= exerciseName %>" selected><%= exerciseName %></option>
+                </select></label>
                 <label>Weight <input type="text" value="<%= weight %>" readonly></label>
                 <input type="submit" id="submit" value="Delete This History">
                 <input type="hidden" name="historyId" value="<%- historyId %>">

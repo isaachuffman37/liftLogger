@@ -5,17 +5,18 @@
     <body>
         <%- include('./partials/nav.ejs') %>
             <h1><%- title %></h1>
+            <%- messages() %>
             <form method="post" action="/userHistory/create">
                 <!-- <label>Workout Name<input type="text" name="workoutName" id="workoutName" pattern="^[\w\s]+$"
                         required></label> -->
                 <%- workoutSelectList %> <!-- workoutId -->
                 <button type="button" id="add-weight">Add Weight</button>
                 <div id="weight-fields"></div>
-                <input type="submit" id="submit" value="Create My Workout">
+                <input type="submit" id="submit" value="Create My History">
                 <input type="hidden" name="userId" id="userId" value="<%- userId %>">
             </form>
             <%- include('./partials/footer.ejs') %>
-                <script src="../../js/addWeight.js"></script>
+            <script src="../../js/addWeight.js"></script>
     </body>
 
 </html>

@@ -4,8 +4,10 @@ const workoutsController = require("../controllers/workoutsControlller");
 // Route to create a new workout
 router.post("/workouts", workoutsController.createWorkout);
 router.get("/workouts/user", workoutsController.getWorkoutsByUserId);
+router.get("/workouts/:id", workoutsController.getWorkoutsById)
 router.delete("/workouts/:id", workoutsController.deleteWorkoutById);
 router.put("/workouts/:id", workoutsController.updateWorkoutById);
+router.get("/workouts/exercises/:exerciseId", workoutsController.getExerciseById)
 
 // Workout creation view
 router.get("/userWorkouts/create", workoutsController.deliverWorkoutView)

@@ -3,6 +3,7 @@
     <%- include('./partials/head.ejs') %>
 <body>
     <%- include('./partials/nav.ejs') %>
+    <%- messages() %>
     <div>
         <h1>
             Welcome to Lift Logger<%= firstName ? ', ' + firstName + '!' : '!' %>

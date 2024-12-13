@@ -251,8 +251,30 @@ async function createHistoryView(req, res) {
 
 async function createHistoryFromForm(req, res) {
     try {
+        if (!req.body.weights) {
+            throw Error("No weights for workout found.")
+        }
+        
+        req.body.weights = await Promise.all(req.body.weights.map(async (weight) => {
+            const exerciseId = mongoose.Types.ObjectId.createFromHexString(weight.exerciseName)
+            const exercises = await Workout.aggregate([
+                { $unwind: "$exercises" },
+                { $match: { "exercises._id": exerciseId } },
+                { $replaceRoot: {
+                    newRoot: "$exercises"
+                } }
+            ])
+
+            if (exercises) {
+                return { exerciseName: exercises[0].exerciseName, weight: weight.weight }
+            } else {
+                return undefined
+            }
+        }))
+
         const history = await new WorkoutHistory(req.body)
         await history.save()
+        
         if (history) {
             res.redirect("/userHistory")
         } else {
@@ -260,6 +282,8 @@ async function createHistoryFromForm(req, res) {
         }
     } catch (error) {
         console.error(error)
+        req.flash("notice", error.message)
+        res.redirect("/userHistory/create")
     }
 }
 
@@ -269,12 +293,13 @@ async function updateHistoryView(req, res) {
         const history = await WorkoutHistory.findById(historyId)
         const document = await history.weights.id(weightId)
         const workout = await Workout.findById(history.workoutId)
-        
+        const exerciseSelect = await utils.buildSelectFromExercises(workout.exercises, "exerciseName", document.exerciseName)
+
         res.render("updateHistory", {
             title: `Update ${ workout.workoutName } History`,
-            weightId: subHistoryId,
+            weightId: weightId,
             historyId: historyId,
-            exerciseName: document.exerciseName,
+            exerciseSelect: exerciseSelect,
             weight: document.weight
         })
     } catch (error) {
@@ -297,6 +322,8 @@ async function updateHistoryFromForm(req, res) {
         res.redirect("/userHistory")
     } catch (error) {
         console.error(error)
+        req.flash("notice", error.message)
+        res.redirect(`/userHistory`)
     }
 }
 
@@ -346,6 +373,8 @@ async function deleteHistoryCardFromForm(req, res) {
         res.redirect("/userHistory")
     } catch (error) {
         console.error(error)
+        req.flash("notice", error.message)
+        res.redirect(`/userHistory`)
     }
 }
 
@@ -358,6 +387,8 @@ async function deleteHistoryFromForm(req, res) {
         res.redirect("/userHistory")
     } catch (error) {
         console.error(error)
+        req.flash("notice", error.message)
+        res.redirect(`/userHistory`)
     }
 }
 
