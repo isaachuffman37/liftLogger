@@ -154,7 +154,9 @@ async function createGoalFromForm(req, res) {
         res.redirect("/userGoals")
     } catch (error) {
         console.error("Error creating a goal", error);
-        res.status(400).json({error: error.message});
+        // res.status(400).json({error: error.message});
+        req.flash("notice", error.message)
+        res.redirect("/userGoals/create")
     }
 }
 
@@ -179,7 +181,9 @@ async function updateGoalFromForm(req, res) {
         res.redirect("/userGoals");
     } catch (error) {
         console.error("Error updating goal:", error);
-        res.status(500).json({error: "Internal server error"});
+        // res.status(500).json({error: "Internal server error"});
+        req.flash("notice", error.message)
+        res.redirect(`/userGoals`)
     }
 }
 
@@ -222,7 +226,8 @@ async function deleteGoalFromForm(req, res) {
         res.redirect("/userGoals")
     } catch (error) {
         console.error("Error deleting goal:", error);
-        res.status(500).json({error: "Internal server error"});
+        req.flash("notice", error.message)
+        res.redirect(`/userGoals`)
     }
 }
 

@@ -10,6 +10,8 @@ const routes = require('./routes/index');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const flash = require("connect-flash");
+const messages = require("express-messages");
 const port = process.env.PORT || 8080;
 dotenv.config();
 
@@ -44,6 +46,13 @@ app.use(session({
 // Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Messages Middleware
+app.use(flash())
+app.use(function(req, res, next){
+  res.locals.messages = messages(req, res)
+  next()
+})
 
 //logging
 if (process.env.HOST == 'localhost:8080') {

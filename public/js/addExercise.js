@@ -21,27 +21,31 @@ function addExerciseField() {
     fieldSet.appendChild(button)
 
     button.addEventListener("click", () => {
-        workoutFields.removeChild(fieldSet)
+        if (workoutFields.childElementCount > 1) {
+            workoutFields.removeChild(fieldSet)
 
-        for (let i = 0; i < workoutFields.childElementCount; i++) {
-            const child = workoutFields.children[i]
-            const legend = child.querySelector("legend")
-            legend.innerText = `Exercise ${ i + 1 }`
+            for (let i = 0; i < workoutFields.childElementCount; i++) {
+                const child = workoutFields.children[i]
+                const legend = child.querySelector("legend")
+                legend.innerText = `Exercise ${ i + 1 }`
 
-            child.querySelectorAll("label").forEach(element => {
-                if (element.innerText == "Name") {
-                    const input = element.querySelector("input")
-                    input.setAttribute("name", `exercises[${ i }][exerciseName]`)
-                } else if (element.innerText == "Reps") {
-                    const input = element.querySelector("input")
-                    input.setAttribute("name", `exercises[${ i }][reps]`)
-                } else if (element.innerText == "Sets") {
-                    const input = element.querySelector("input")
-                    input.setAttribute("name", `exercises[${ i }][sets]`)
-                }
-            })
+                child.querySelectorAll("label").forEach(element => {
+                    if (element.innerText == "Name") {
+                        const input = element.querySelector("input")
+                        input.setAttribute("name", `exercises[${ i }][exerciseName]`)
+                    } else if (element.innerText == "Reps") {
+                        const input = element.querySelector("input")
+                        input.setAttribute("name", `exercises[${ i }][reps]`)
+                    } else if (element.innerText == "Sets") {
+                        const input = element.querySelector("input")
+                        input.setAttribute("name", `exercises[${ i }][sets]`)
+                    }
+                })
+            }
         }
     })
 }
 
 addWorkoutButton.addEventListener("click", addExerciseField)
+
+addExerciseField()

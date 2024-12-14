@@ -4,8 +4,11 @@
     <body>
         <%- include('./partials/nav.ejs') %>
             <h1><%- title %></h1>
+            <%- messages() %>
             <form method="post" action="/userHistory/update">
-                    <label>Exercise Name<input type="text" name="exerciseName" value="<%= exerciseName %>"></label>
+                    <!-- <label>Exercise Name<input type="text" name="exerciseName" value="<%#= exerciseName %>"></label> -->
+                    <label>Exercise Name <%- exerciseSelect %> </label>
+
                     <label>Weight<input type="number" name="weight" value="<%= weight %>"></label>
                     <input type="submit" id="submit" value="Update History">
                     <input type="hidden" name="weightId" value="<%- weightId %>">

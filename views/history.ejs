@@ -5,6 +5,7 @@
     <%- include('./partials/nav.ejs') %>
     <div class="workout-history"></div>
         <h1><%= title %></h1>
+        <%- messages() %>
         <a href="/userHistory/create">Create</a>
         <%- history %>
     </div>
