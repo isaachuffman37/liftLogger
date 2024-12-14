@@ -4,7 +4,8 @@
 <body>
     <%- include('./partials/nav.ejs') %>
     <%- messages() %>
-    <a href="/userWorkouts/create">Create workout</a>
+    <h1>Workouts</h1>
+    <a href="/userWorkouts/create" class="box">Create new workout</a>
     <% if (workoutsData.length > 0) {%>
         <% workoutsData.forEach(workout=> { %>
         <li class="workout-list">
@@ -19,8 +20,8 @@
                     </p>
                     <p>Sets: <%= exercise.sets %>
                     </p>
-                    <a href="/userWorkouts/updateExercise/<%= exercise._id %>">Modify</a>
-                    <a href="/userWorkouts/removeExercise/<%= exercise._id %>">Delete</a>
+                    <a href="/userWorkouts/updateExercise/<%= exercise._id %>" class="box">Modify</a>
+                    <a href="/userWorkouts/removeExercise/<%= exercise._id %>" class="box">Delete</a>
                 </div>
                 <% }) %>
         </li>

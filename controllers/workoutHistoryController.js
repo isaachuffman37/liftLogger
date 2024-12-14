@@ -240,7 +240,7 @@ async function createHistoryView(req, res) {
         const workoutSelectList = utils.buildWorkoutSelectList(workoutData)
 
         res.render("addHistory", {
-            title: "Create History",
+            title: "Add History",
             userId: userId,
             workoutSelectList: workoutSelectList
         })
