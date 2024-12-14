@@ -12,6 +12,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const flash = require("connect-flash");
 const messages = require("express-messages");
+const { ensureAuth } = require('./middleware/auth')
 const port = process.env.PORT || 8080;
 dotenv.config();
 
@@ -63,4 +64,4 @@ if (process.env.HOST == 'localhost:8080') {
 app
     .use(bodyParser.urlencoded({ extended: true }))
     .use('/', routes)
-    .use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerFile))
+    .use('/api-docs', ensureAuth, swaggerUI.serve, swaggerUI.setup(swaggerFile))
