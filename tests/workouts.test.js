@@ -51,6 +51,27 @@ describe('createWorkoutFromForm controller', () => {
       ]));
       expect(res.redirect).toHaveBeenCalledWith('/userWorkouts');
     });
-  });
-  
-  
+
+    it('should handle validation errors and redirect to creation page', async () => {
+      req.body.workoutName = ''; 
+      const errorMessage = 'Workout validation failed';
+
+      mockingoose(Workout).toReturn(new Error(errorMessage), 'save');
+
+      await createWorkoutFromForm(req, res);
+
+      expect(req.flash).toHaveBeenCalledWith('notice', expect.stringContaining(errorMessage));
+      expect(res.redirect).toHaveBeenCalledWith('/userWorkouts/create');
+    });
+
+    it('should handle database errors and redirect to creation page', async () => {
+      const errorMessage = 'Database error';
+
+      mockingoose(Workout).toReturn(new Error(errorMessage), 'save');
+
+      await createWorkoutFromForm(req, res);
+
+      expect(req.flash).toHaveBeenCalledWith('notice', expect.stringContaining(errorMessage));
+      expect(res.redirect).toHaveBeenCalledWith('/userWorkouts/create');
+    });
+});
