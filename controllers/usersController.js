@@ -5,7 +5,6 @@ const getUsers = async (req, res) => {
   const users = await User.find({}).sort()
 
   res.status(200).json(users)
-  // res.render('user', {users: userData})
 }
 
 const getUser = async (req, res) => {
@@ -21,17 +20,26 @@ const getUser = async (req, res) => {
     return res.status(404).json({error: "No such user"})
   }
   console.log("Hit")
-  // res.status(200).json(user)
   res.render('user', {userData: user})
+}
+
+const getUpdateUser = async (req, res) => {
+  const id = req.user.id
+
+  if(!mongoose.Types.ObjectId.isValid(id)){
+    return res.status(404).json({error: "No such user"})
+  }
+
+  const user = await User.findById(id)
+
+  res.render('updateUser', {userData: user, successMessage: null})
+
 }
 
 // create a new user
 const createUser = async (req, res) => {
   console.log(req.body);
   const {username, password, firstName, lastName} = req.body
-  // let stuff = req.body
-  // console.log(stuff)
-  // add to db
   try{
     const user = await User.create({username, password, firstName, lastName})
     res.status(200).json(user)
@@ -42,7 +50,7 @@ const createUser = async (req, res) => {
 
 // delete a user
 const deleteUser = async (req, res) => {
-const {id} = req.params
+const id = req.user.id
 
 if(!mongoose.Types.ObjectId.isValid(id)){
   return res.status(404).json({error: "No such user"})
@@ -59,21 +67,33 @@ res.status(200).json(user)
 
 // update a user
 const updateUser = async (req, res) => {
-const {id} = req.params
+  const id = req.user.id
+  const {displayName} = req.body
 
-if(!mongoose.Types.ObjectId.isValid(id)){
-  return res.status(404).json({error: "No such user"})
-}
+  if (!displayName) {
+    return res.status(400).json({ error: "Display name is required" });
+  }
 
-const user = await User.findOneAndUpdate({_id: id}, {
-  ...req.body
-})
+  if(!mongoose.Types.ObjectId.isValid(id)){
+    return res.status(404).json({error: "Id invalid"})
+  }
 
-if(!user) {
-  return res.status(400).json({error: "No such user"})
-}
 
-res.status(204).json(user)
+  const user = await User.findByIdAndUpdate(
+    id, 
+    { displayName }, 
+    { new: true } 
+  );
+
+  if(!user) {
+    return res.status(400).json({error: "No such user"})
+  }
+
+  res.render('updateUser', {
+    userData: user, 
+    successMessage: 'Your display name has been updated successfully!' 
+  });
+
 }
 
 module.exports = {
@@ -81,4 +101,5 @@ module.exports = {
    getUser,
    createUser, 
    deleteUser,
-   updateUser}
+   updateUser, 
+   getUpdateUser}

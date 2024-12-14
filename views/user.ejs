@@ -5,6 +5,8 @@
     <%- include('./partials/nav.ejs') %>
     <%- messages() %>
     <h2>Welcome <%= userData.firstName %> <%= userData.lastName %></h2>
+
+    <a class="box" href="/users/updateUser">Update your account</a>
     
     <%- include('./partials/footer.ejs') %>
 </body>
