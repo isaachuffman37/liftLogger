@@ -17,7 +17,7 @@
                     <option value="Completed" <% if (status=="Completed" ) { %> selected <% } %>>Completed</option>
                 </select></label>
             <label>Deadline<input type="date" name="deadline" id="deadline" value="<%- deadline %>" readonly></label>
-            <input type="submit" id="submit" value="Delete My Goal">
+            <input type="submit" id="submit" value="Delete My Goal" class="box">
         </form>
     </div>
     <%- include('./partials/footer.ejs') %>

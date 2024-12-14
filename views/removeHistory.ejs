@@ -10,7 +10,7 @@
                                     required></label> -->
                 <p>Are you sure you want to delete this workout history? This action cannot be undone.</p>
                 <label>Workout Name<input type="text" value="<%= workoutName %>" readonly></label>
-                <input type="submit" id="submit" value="Delete History For Workout">
+                <input type="submit" id="submit" value="Delete History For Workout" class="box">
                 <input type="hidden" name="historyId" value="<%- historyId %>">
             </form>
             <%- include('./partials/footer.ejs') %>

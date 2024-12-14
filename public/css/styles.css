@@ -16,6 +16,7 @@ body {
 nav {
     width: 100%;
     background-color: var(--nav);
+    margin: 10px;
 }
 
 a {
@@ -137,10 +138,11 @@ nav>ul>li>a:hover, nav>div:hover {
     border: 2px solid #9c9b9b;
 }
 
-h1 {
-    font-size: 24px;
+h1, h2 {
+    font-size: 32px;
     color: #333;
     margin-bottom: 20px;
+    margin-left: 20px;
 }
 
 .google-auth {
@@ -179,6 +181,21 @@ label, input, select, button {
 
 label, button {
     margin: 1em
+}
+
+.box{
+    padding: 10px;
+    margin: 10px;
+    border: 2px;
+    border-color: black;
+    border-style: solid;
+    background-color: rgb(175, 201, 231);
+    display: inline-block;
+}
+
+body{
+    margin: 10px;
+    background-color: aliceblue;
 }
 
 @media screen and (min-width: 600px) {

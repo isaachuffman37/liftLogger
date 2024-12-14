@@ -95,8 +95,8 @@ utils.buildHistoryDataFromWorkoutHistory = async (workoutData) => {
             for (let i = 0; i < history.weights.length; i++) {
                 html += `<h4>Exercise: ${ history.weights[i].exerciseName }</h4>`
                 html += `<p>Weight: ${ history.weights[i].weight }</p>`
-                html += `<a href="/userHistory/update/${ history._id }/${ history.weights[i]._id }">Modify</a>`
-                html += `<a href="/userHistory/remove/${ history._id }/${ history.weights[i]._id }">Delete</a>`
+                html += `<a href="/userHistory/update/${ history._id }/${ history.weights[i]._id }" class="box">Modify</a>`
+                html += `<a href="/userHistory/remove/${ history._id }/${ history.weights[i]._id }" class="box">Delete</a>`
             }
         } else {
             html += `<h4>No weights found for this workout.</h4>`
