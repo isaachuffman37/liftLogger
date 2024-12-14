@@ -8,16 +8,21 @@ const {
   getUser,
   createUser,
   deleteUser,
-  updateUser
+  updateUser,
+  getUpdateUser,
 } = require("../controllers/usersController.js")
 
 const router = express.Router()
 
 router.get('/', ensureAuth, getUsers)
 
+router.get('/updateUser', ensureAuth, getUpdateUser)
+
 router.get('/userInfo', ensureAuth, getUser)
 
 router.post('/', ensureAuth, createUser)
+
+router.post('/updateUser', ensureAuth, updateUser)
 
 router.delete('/:id', ensureAuth, deleteUser)
 

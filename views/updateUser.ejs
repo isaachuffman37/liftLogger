@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <%- messages() %>
+
+    <% if (successMessage) { %>
+        <div class="successMessage">
+            <h2><%= successMessage %></h2>
+        </div>
+    <% } %>
+
+    <h2>Your display name is <%= userData.displayName %></h2>
+    
+
+    <form action="/users/updateUser" method="post">
+        <label>Enter your new display name<input type="text" name="displayName" id="displayName" required></label>
+        <input type="submit" value="Update">
+    </form>
+    
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

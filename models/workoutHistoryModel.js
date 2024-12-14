@@ -1,13 +1,5 @@
 const { Schema, model, Types } = require('mongoose');
 
-// Create the workoutHistory schema from the initial document:
-// {
-//     "_id": ObjectId,
-//     "userId": ObjectId,
-//     "workoutId": ObjectId,
-//     "date": "ISODate",
-//     "weights": [ { "exerciseName": "string", "weight": "number" } ]
-// }
 
 const historySchema = new Schema({
   userId: {
