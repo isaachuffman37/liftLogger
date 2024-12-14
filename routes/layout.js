@@ -1,15 +1,11 @@
 const express = require('express')
+const { ensureGuest } = require('../middleware/auth')
 const app = express()
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
-  if (req.user) {
-    const firstName = req.user?.firstName;
-    res.render('welcomePage', {firstName})
-  } else {
-    res.redirect("/auth/google")
-  }
+router.get('/', ensureGuest, (req, res) => {
+  res.render('login')
 })
 
 module.exports = router

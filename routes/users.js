@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const { ensureAuth } = require('../middleware/auth')
 
 app.use(express.json());
 const {
@@ -12,14 +13,14 @@ const {
 
 const router = express.Router()
 
-router.get('/', getUsers)
+router.get('/', ensureAuth, getUsers)
 
-router.get('/userInfo', getUser)
+router.get('/userInfo', ensureAuth, getUser)
 
-router.post('/', createUser)
+router.post('/', ensureAuth, createUser)
 
-router.delete('/:id', deleteUser)
+router.delete('/:id', ensureAuth, deleteUser)
 
-router.put('/:id', updateUser)
+router.put('/:id', ensureAuth, updateUser)
 
 module.exports = router
