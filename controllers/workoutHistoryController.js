@@ -58,8 +58,8 @@ const getHistory = async (req, res) => {
     const history = await WorkoutHistory.findById(id);
     if (!history) return res.status(404).send("could not find document");
 
-    // res.status(200).json(history);
-    res.render('history', {historyData: history})
+    res.status(200).json(history);
+    // res.render('history', {historyData: history})
 };
 
 const updateHistory = async (req, res) => {
