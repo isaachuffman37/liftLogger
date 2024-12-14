@@ -4,6 +4,7 @@
     <body>
         <%- include('./partials/nav.ejs') %>
             <h1><%- title %></h1>
+            <%- messages() %>
             <form method="post" action="/userHistory/remove/<%= historyId %>">
                 <!-- <label>Workout Name<input type="text" name="workoutName" id="workoutName" pattern="^[\w\s]+$"
                                     required></label> -->

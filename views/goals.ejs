@@ -3,9 +3,10 @@
     <%- include('./partials/head.ejs') %>
 <body>
     <%- include('./partials/nav.ejs') %>
+    <h2>Goals</h2>
+    <%- messages() %>
+    <a href="/userGoals/create">Create Goal</a>
     <div id="goals">
-        <h2>Goals</h2>
-        <a href="/userGoals/create">Create Goal</a>
         <%- goalData %>
     </div>
     <%- include('./partials/footer.ejs') %>

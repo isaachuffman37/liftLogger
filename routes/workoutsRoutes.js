@@ -3,10 +3,14 @@ const workoutsController = require("../controllers/workoutsControlller");
 const { ensureAuth } = require('../middleware/auth')
 
 // Route to create a new workout
+
 router.post("/workouts", ensureAuth, workoutsController.createWorkout);
 router.get("/workouts/user", ensureAuth, workoutsController.getWorkoutsByUserId);
+router.get("/workouts/:id", ensureAuth, workoutsController.getWorkoutsById)
 router.delete("/workouts/:id", ensureAuth, workoutsController.deleteWorkoutById);
 router.put("/workouts/:id", ensureAuth, workoutsController.updateWorkoutById);
+router.get("/workouts/exercises/:exerciseId", ensureAuth, workoutsController.getExerciseById)
+
 
 // Workout creation view
 router.get("/userWorkouts/create", ensureAuth, workoutsController.deliverWorkoutView)

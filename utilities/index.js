@@ -8,12 +8,14 @@ const timeFormatter = new Intl.DateTimeFormat("en-US", {
     second: "numeric",
     day: "numeric",
     month: "short",
+    year: "numeric",
     hour12: true,
 })
 
 // Creating this to support the creation of multiple goals at once.
 utils.buildGoal = (goalData) => {
     let html = "<div class=\"goal-card\">"
+
     html += `<h3>${ goalData.goalTitle }</h3>`
     html += `<a href="/userGoals/update/${ goalData._id }">Modify</a>`
     html += `<a href="/userGoals/remove/${ goalData._id }">Delete</a>`
@@ -29,7 +31,7 @@ utils.buildGoal = (goalData) => {
 // Build local fieldsets
 utils.buildWorkoutFieldsets = (exerciseData) => {
     let html = ""
-    console.log(exerciseData)
+
     if (exerciseData) {
         for (let index = 0; index < exerciseData.length; index ++) {
             html += "<fieldset>"
@@ -47,10 +49,9 @@ utils.buildWorkoutFieldsets = (exerciseData) => {
 // Build local fieldsets
 utils.buildReadonlyWorkoutFieldsets = (exerciseData) => {
     let html = ""
-    console.log(exerciseData)
+    
     if (exerciseData) {
         for (let index = 0; index < exerciseData.length; index ++) {
-            console.log(exerciseData[index])
             html += "<fieldset>"
             html += `<legend>Exercise  ${ index + 1 }</legend>`
             html += `<label>Name<input type="text" value="${ exerciseData[index].exerciseName }" readonly></label>`
@@ -65,10 +66,11 @@ utils.buildReadonlyWorkoutFieldsets = (exerciseData) => {
 
 utils.buildWorkoutSelectList = (workoutData) => {
     let html = `<label>Workout<select name="workoutId" id="workoutId">`
+    html += "<option value=\"\" selected disabled hidden>Choose Workout</option>"
 
     for (let i = 0; i < workoutData.length; i++) {
         const { _id, workoutName } = workoutData[i]
-        html += `<option value="${ _id }" ${ i == 0 ? "selected" : "" }>${ workoutName }</option>`
+        html += `<option value="${ _id }">${ workoutName }</option>`
     }
 
     html += "</select></label>"
@@ -105,6 +107,18 @@ utils.buildHistoryDataFromWorkoutHistory = async (workoutData) => {
 
     html += "</li>"
 
+    return html
+}
+
+utils.buildSelectFromExercises = async (exercises, name, select, readonly) => {
+    let html = `<select name="${name}" required ${ readonly ? "readonly" : "" }>`
+    html += "<option value=\"\" selected disabled hidden>Choose Exercise</option>"
+    
+    for (const exercise of exercises) {
+        html += `<option name="${exercise.exerciseName}" ${select == exercise.exerciseName ? "Selected" : "" }>${exercise.exerciseName}</option>`
+    }
+
+    html += "</option></select>"
     return html
 }
 

@@ -38,6 +38,43 @@ async function getWorkoutsByUserId(req, res) {
     }
 }
 
+async function getWorkoutsById(req, res) {
+  try {
+    const { id } = req.params
+    const workoutData = await Workout.findById(id)
+
+    if (workoutData) {
+      res.status(200).json(workoutData)
+    } else {
+      return res.status(404).json({ message: "No workouts found under this id." })
+    }
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+async function getExerciseById(req, res) {
+  try {
+    const exerciseId = mongoose.Types.ObjectId.createFromHexString(req.params.exerciseId)
+    const exercises = await Workout.aggregate([
+      { $unwind: "$exercises" },
+      { $match: { "exercises._id": exerciseId } },
+      { $replaceRoot: {
+        newRoot: "$exercises"
+      } }
+    ])
+
+    if (exercises) {
+      res.status(200).json(exercises[0])
+    } else {
+      res.status(404).json({ message: "No exercises found under this id."})
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 async function deleteWorkoutById(req, res) {
     const { id } = req.params;
   
@@ -91,7 +128,7 @@ async function updateWorkoutById(req, res) {
 async function deliverWorkoutView(req, res, next) {
   const userId = req.user.id
   // const workouts = utils.buildWorkoutFieldsets(req.app.locals.exerciseData)
-
+  
   res.render("addWorkout", {
     title: "Create workout",
     user_id: userId,
@@ -100,23 +137,28 @@ async function deliverWorkoutView(req, res, next) {
 }
 
 async function deliverWorkoutUpdateView(req, res) {
-  const userId = req.user.id
-
-  const exerciseId = mongoose.Types.ObjectId.createFromHexString(req.params.exerciseId)
-  const exercises = await Workout.aggregate([
-    { $unwind: "$exercises" },
-    { $match: { "exercises._id": exerciseId } },
-    { $replaceRoot: {
-      newRoot: "$exercises"
-    } }
-  ])
-  
-  res.render("updateExercise", {
-    title: "Update Exercise",
-    exercise: exercises[0],
-    exerciseId: exerciseId,
-    userId: userId
-  })
+  try {
+    const userId = req.user.id
+    const exerciseId = mongoose.Types.ObjectId.createFromHexString(req.params.exerciseId)
+    const exercises = await Workout.aggregate([
+      { $unwind: "$exercises" },
+      { $match: { "exercises._id": exerciseId } },
+      { $replaceRoot: {
+        newRoot: "$exercises"
+      } }
+    ])
+    
+    res.render("updateExercise", {
+      title: "Update Exercise",
+      exercise: exercises[0],
+      exerciseId: exerciseId,
+      userId: userId
+    })
+  } catch (error) {
+    console.error(error)
+    req.flash("notice", error.message)
+    res.redirect("/userWorkouts/")
+  }
 }
 
 async function updateWorkoutFromForm(req, res) {
@@ -141,6 +183,8 @@ async function updateWorkoutFromForm(req, res) {
     res.redirect("/userWorkouts")
   } catch (error) {
     console.error(error)
+    req.flash("notice", error.message)
+    res.redirect("/userWorkouts")
   }
 }
 
@@ -177,6 +221,8 @@ async function deleteWorkoutFromForm(req, res) {
     })
   } catch (error) {
     console.error(error)
+    req.flash("notice", error.message)
+    res.redirect("/userWorkouts")
   }
 }
 
@@ -184,14 +230,14 @@ async function createWorkoutFromForm(req, res, next) {
   // res.app.locals.exerciseData = req.body.exercises
 
   try {
-    console.log(req.body)
     const workout = new Workout(req.body);
     await workout.save();
     res.redirect("/userWorkouts")
     // res.status(201).json(savedWorkout);
   } catch (error) {
     console.error("Error creating workout:", error);
-    res.status(400).json({ error: error.message });
+    req.flash("notice", error.message)
+    res.redirect("/userWorkouts/create")
   }
 }
 
@@ -288,6 +334,8 @@ const workoutController = {
   deleteWorkoutFromForm,
   deleteExerciseFromForm,
   deleteExerciseView,
+  getWorkoutsById,
+  getExerciseById,
 };
 
 module.exports = workoutController
